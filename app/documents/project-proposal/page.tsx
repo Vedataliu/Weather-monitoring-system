@@ -52,7 +52,7 @@ export default function ProjectProposalPage() {
             <CardContent>
               <div className="bg-blue-50 p-4 rounded-lg">
                 <div className="space-y-2">
-                  <div className="font-semibold text-blue-900">Erind Avdiu: Software Engineering Student</div>
+                  <div className="font-semibold text-blue-900">Ermal Aliu: Software Engineering Student</div>
                   <div className="text-blue-700 text-sm">
                   </div>
                 </div>

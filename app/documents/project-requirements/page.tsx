@@ -17,7 +17,7 @@ export default function ProjectRequirementsPage() {
             </Badge>
             <Badge variant="outline" className="px-4 py-2">
               <BookOpen className="h-4 w-4 mr-2" />
-              Erind Avdiu – UBT - Advanced Programming Course
+              Ermal Aliu – UBT - Advanced Programming Course
             </Badge>
           </div>
         </div>

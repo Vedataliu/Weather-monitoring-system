@@ -102,7 +102,7 @@ export default function ConferencePaperPage() {
                   <div className=" p-4 rounded-lg">
                     <ul className="space-y-1 text-gray-700">
                       <li>
-                        <strong>Team Lead:</strong> Erind Avdiu
+                        <strong>Team Lead:</strong> Ermal Aliu
                       </li>
                       <li>
                         <strong>Institution:</strong> UBT University
