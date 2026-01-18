@@ -3,7 +3,7 @@
 **Course:** Advanced Programming (Master's Level)  
 **Institution:** UBT University  
 **Instructors:** E. Jajaga & A. Kadriu  
-**Date:** August 2025  
+**Date:** January 2026
 
 ## Team Members
 

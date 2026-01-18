@@ -4,7 +4,7 @@
 **Institution:** UBT University, Kosovo  
 **Course:** Advanced Programming (Master's Level)  
 **Instructors:** Dr.Sc Edmond Jajaga  
-**Date:** August 2025 
+**Date:** January 2026 
 
 ## Abstract
 

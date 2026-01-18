@@ -107,7 +107,7 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-slate-400">
           <div className="flex items-center gap-4 mb-4 md:mb-0">
-            <span>© 2025 Weather Monitor System</span>
+            <span>© 2026 Weather Monitor System</span>
             <span>•</span>
             <span>Advanced Programming Project</span>
           </div>

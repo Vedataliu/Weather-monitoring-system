@@ -40,7 +40,7 @@ export default function ConferencePaperPage() {
             </Badge>
             <Badge variant="outline" className="px-4 py-2">
               <Award className="h-4 w-4 mr-2" />
-              August 2025
+              January 2026
             </Badge>
           </div>
         </div>
