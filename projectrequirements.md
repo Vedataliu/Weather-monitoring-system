@@ -1,5 +1,5 @@
 # Advanced Programming Project Assignment  
-**Course Instructors:** E. Jajaga & A. Kadriu  
+**Course Instructors:** Edmond Jajaga
 **UBT Master Students – Advanced Programming Course**  
 
 ---

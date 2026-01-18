@@ -67,14 +67,6 @@ export default function ProjectProposalPage() {
                   {name}
                 </div>
               ))}
-
-              <Alert className="bg-amber-950/30 border border-amber-800 mt-4">
-                <AlertTriangle className="h-4 w-4 text-amber-400" />
-                <AlertDescription className="text-amber-200">
-                  <strong>Note:</strong> This is an individual project demonstrating
-                  advanced programming and big data concepts.
-                </AlertDescription>
-              </Alert>
             </CardContent>
           </Card>
 

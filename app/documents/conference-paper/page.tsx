@@ -112,7 +112,7 @@ export default function ConferencePaperPage() {
                         Level)
                       </li>
                       <li>
-                        <strong>Project Type:</strong> Individual comprehensive
+                        <strong>Project Type:</strong> Group comprehensive
                         implementation
                       </li>
                        <li>

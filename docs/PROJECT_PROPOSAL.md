@@ -2,7 +2,7 @@
 
 **Course:** Advanced Programming (Master's Level)  
 **Institution:** UBT University  
-**Instructors:** E. Jajaga & A. Kadriu  
+**Instructors:** Edmond Jajaga
 **Date:** January 2026
 
 ## Team Members
@@ -11,7 +11,7 @@
 **Role:** Full-stack developer, System architect, Data analyst  
 **Responsibilities:** Overall project coordination, backend development, OOP architecture design, big data implementation  
 
-*Note: This is an individual project demonstrating comprehensive understanding of advanced programming concepts and big data processing.*
+*Note: This is a project demonstrating comprehensive understanding of advanced programming concepts and big data processing.*
 
 ## Problem Statement
 

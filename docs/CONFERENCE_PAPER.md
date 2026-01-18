@@ -21,7 +21,7 @@ This paper presents a comprehensive Weather Monitor System that addresses weathe
 - **Team Lead:** Graduate Student, Software Engineering
 - **Institution:** UBT University
 - **Course:** Advanced Programming (Master's Level)
-- **Project Type:** Individual comprehensive implementation
+- **Project Type:** Group comprehensive implementation
 - **Duration:** 8 weeks development cycle
 
 ### 1.3 Problem Definition
