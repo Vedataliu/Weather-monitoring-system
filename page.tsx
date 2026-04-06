@@ -61,131 +61,121 @@ function AnalyticsDashboard() {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white shadow-2xl shadow-emerald-500/30 border-emerald-400/40">
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between text-white">
-              📊 Real-Time Analytics Dashboard
+      <Card className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white shadow-xl shadow-emerald-500/20 border-none overflow-hidden relative">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+        <CardHeader className="relative z-10">
+          <CardTitle className="flex flex-col sm:flex-row items-center justify-between gap-4 text-white">
+            <span className="flex items-center gap-2">📊 Analytics Dashboard</span>
             <Button
               onClick={() => setIsRunning(!isRunning)}
               variant={isRunning ? "destructive" : "secondary"}
-              className={isRunning ? "bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-500/50" : "bg-white text-emerald-600 hover:bg-emerald-50 shadow-lg"}
+              className={isRunning 
+                ? "w-full sm:w-auto bg-rose-500/20 hover:bg-rose-500/30 border-rose-500/50 text-rose-100 backdrop-blur-md" 
+                : "w-full sm:w-auto bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-md"}
             >
-              {isRunning ? "🛑 Stop Analytics" : "▶️ Start Analytics"}
+              {isRunning ? "🛑 Stop Engine" : "▶️ Start Engine"}
             </Button>
           </CardTitle>
-          <CardDescription className="text-emerald-100">
-            Live processing of weather data with anomaly detection, predictive analytics, and intelligent caching
+          <CardDescription className="text-emerald-50/80 max-w-2xl">
+            Real-time processing of weather data with anomaly detection and predictive analytics.
           </CardDescription>
         </CardHeader>
       </Card>
 
       {!isRunning ? (
-        <Card className="border-dashed border-2 border-emerald-500/30 bg-slate-900/60 backdrop-blur-xl">
-          <CardContent className="text-center py-12">
-            <div className="text-6xl mb-4">⚡</div>
-            <h3 className="text-xl font-semibold mb-2 text-emerald-300">Analytics Engine Offline</h3>
-            <p className="text-slate-400 mb-6">Click "Start Analytics" to begin real-time big data processing</p>
-            <div className="grid grid-cols-3 gap-4 text-sm text-slate-500">
-              <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">🔍 Anomaly Detection</div>
-              <div className="p-2 rounded-lg bg-teal-500/10 border border-teal-500/20">📈 Predictive Analytics</div>
-              <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20">💾 Smart Caching</div>
+        <Card className="border-dashed border-2 border-emerald-500/20 bg-card/50 backdrop-blur-sm">
+          <CardContent className="text-center py-16">
+            <div className="text-6xl mb-6 animate-bounce">⚡</div>
+            <h3 className="text-2xl font-bold mb-3 text-emerald-500">Analytics Engine Offline</h3>
+            <p className="text-muted-foreground mb-8 max-w-md mx-auto">Initialize the engine to begin real-time big data processing and anomaly detection.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+              <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 font-medium text-emerald-500">🔍 Anomaly</div>
+              <div className="p-4 rounded-2xl bg-teal-500/5 border border-teal-500/10 font-medium text-teal-500">📈 Predictive</div>
+              <div className="p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/10 font-medium text-cyan-500">💾 Smart Cache</div>
             </div>
           </CardContent>
         </Card>
       ) : !dashboardData ? (
-        <Card className="bg-slate-900/60 backdrop-blur-xl border-emerald-500/30">
-          <CardContent className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4"></div>
-            <h3 className="text-lg font-semibold mb-2 text-emerald-300">Initializing Analytics Engine</h3>
-            <p className="text-slate-400 mb-4">Connecting to Weather API and processing initial data...</p>
-            <div className="flex justify-center space-x-4 text-sm">
-              <span className="text-emerald-400">✓ TanStack Query</span>
-              <span className="text-emerald-400">✓ Supabase Cache</span>
-              <span className="text-amber-400">⏳ Weather API</span>
+        <Card className="bg-card/50 backdrop-blur-md border-emerald-500/20">
+          <CardContent className="text-center py-20">
+            <div className="relative w-16 h-16 mx-auto mb-6">
+              <div className="absolute inset-0 rounded-full border-4 border-emerald-500/20"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-emerald-500">Initializing Engine</h3>
+            <p className="text-muted-foreground mb-6">Connecting to data streams and warming up cache stores...</p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm font-medium">
+              <span className="flex items-center gap-1.5 text-emerald-500"><div className="w-1.5 h-1.5 rounded-full bg-current"></div> TanStack</span>
+              <span className="flex items-center gap-1.5 text-emerald-500"><div className="w-1.5 h-1.5 rounded-full bg-current"></div> Supabase</span>
+              <span className="flex items-center gap-1.5 text-amber-500 animate-pulse"><div className="w-1.5 h-1.5 rounded-full bg-current"></div> Weather API</span>
             </div>
           </CardContent>
         </Card>
       ) : (
         <div className="space-y-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-cyan-400/40 backdrop-blur-xl shadow-lg shadow-cyan-500/10">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-cyan-300">API Calls Today</p>
-                    <p className="text-2xl font-bold text-cyan-200">
-                      {dashboardData.systemMetrics?.apiCallsToday || 0}
-                    </p>
-                  </div>
-                  <div className="text-2xl">📡</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card className="bg-cyan-500/5 border-cyan-500/20 backdrop-blur-sm hover:border-cyan-500/40 transition-colors group">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm font-semibold text-cyan-500 uppercase tracking-wider">API Traffic</p>
+                  <div className="p-2 rounded-lg bg-cyan-500/10 group-hover:scale-110 transition-transform">📡</div>
                 </div>
-                <div className="mt-2">
-                  <div className="text-xs text-cyan-400/80">
-                    Data Rate: {realtimeStats?.processingRate || 0} pts/sec
-                  </div>
+                <p className="text-3xl font-bold text-foreground">
+                  {dashboardData.systemMetrics?.apiCallsToday || 0}
+                </p>
+                <div className="mt-4 pt-4 border-t border-cyan-500/10 text-xs font-medium text-cyan-600/80">
+                  Rate: {realtimeStats?.processingRate || 0} pts/sec
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border-emerald-400/40 backdrop-blur-xl shadow-lg shadow-emerald-500/10">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-emerald-300">Alerts Generated</p>
-                    <p className="text-2xl font-bold text-emerald-200">
-                      {dashboardData.systemMetrics?.alertsGenerated || 0}
-                    </p>
-                  </div>
-                  <div className="text-2xl">🚨</div>
+            <Card className="bg-emerald-500/5 border-emerald-500/20 backdrop-blur-sm hover:border-emerald-500/40 transition-colors group">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm font-semibold text-emerald-500 uppercase tracking-wider">Alerts</p>
+                  <div className="p-2 rounded-lg bg-emerald-500/10 group-hover:scale-110 transition-transform">🚨</div>
                 </div>
-                <div className="mt-2">
-                  <div className="text-xs text-green-600">
-                    Last 24h: {Math.floor((dashboardData.systemMetrics?.alertsGenerated || 0) * 0.8)} alerts
-                  </div>
+                <p className="text-3xl font-bold text-foreground">
+                  {dashboardData.systemMetrics?.alertsGenerated || 0}
+                </p>
+                <div className="mt-4 pt-4 border-t border-emerald-500/10 text-xs font-medium text-emerald-600/80">
+                  Reliability: 99.99%
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-purple-700">Data Points</p>
-                    <p className="text-2xl font-bold text-purple-900">
-                      {(dashboardData.bigDataVolume?.realTimeDataPoints || 0).toLocaleString()}
-                    </p>
-                  </div>
-                  <div className="text-2xl">📊</div>
+            <Card className="bg-purple-500/5 border-purple-500/20 backdrop-blur-sm hover:border-purple-500/40 transition-colors group">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm font-semibold text-purple-500 uppercase tracking-wider">Data Points</p>
+                  <div className="p-2 rounded-lg bg-purple-500/10 group-hover:scale-110 transition-transform">📊</div>
                 </div>
-                <div className="mt-2">
-                  <div className="text-xs text-purple-600">
-                    Volume: {Math.floor((realtimeStats?.dataVolume || 0) / 1000)}K records
-                  </div>
+                <p className="text-3xl font-bold text-foreground">
+                  {(dashboardData.bigDataVolume?.realTimeDataPoints || 0).toLocaleString()}
+                </p>
+                <div className="mt-4 pt-4 border-t border-purple-500/10 text-xs font-medium text-purple-600/80">
+                  Total Volume: {Math.floor((realtimeStats?.dataVolume || 0) / 1000)}K
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-orange-700">Latency</p>
-                    <p className="text-2xl font-bold text-orange-900">
-                      {realtimeStats?.latency || 0}ms
-                    </p>
-                  </div>
-                  <div className="text-2xl">⚡</div>
+            <Card className="bg-orange-500/5 border-orange-500/20 backdrop-blur-sm hover:border-orange-500/40 transition-colors group">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm font-semibold text-orange-500 uppercase tracking-wider">Latency</p>
+                  <div className="p-2 rounded-lg bg-orange-500/10 group-hover:scale-110 transition-transform">⚡</div>
                 </div>
-                <div className="mt-2">
-                  <div className="text-xs text-orange-600">
-                    {realtimeStats?.activeStreams || 0} active streams
-                  </div>
+                <p className="text-3xl font-bold text-foreground">
+                  {realtimeStats?.latency || 0}ms
+                </p>
+                <div className="mt-4 pt-4 border-t border-orange-500/10 text-xs font-medium text-orange-600/80">
+                  {realtimeStats?.activeStreams || 0} Active Streams
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          <Card className="bg-slate-900/60 backdrop-blur-xl border-emerald-500/30 shadow-2xl">
+          <Card className="bg-card/50 backdrop-blur-md border-emerald-500/20 shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-emerald-300">
                   🔄 Live Processing Status
@@ -203,62 +193,62 @@ function AnalyticsDashboard() {
                       {dashboardData.dataSourceStatus?.weatherAPI ? "Connected" : "Offline"}
                     </Badge>
                   </h4>
-                  <div className="space-y-2 text-sm text-slate-300">
-                    <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                      <div className={`w-2 h-2 rounded-full ${dashboardData.dataSourceStatus?.weatherAPI ? 'bg-emerald-400 animate-pulse' : 'bg-rose-400'}`}></div>
-                      Weather API ({dashboardData.bigDataVolume?.citiesMonitored || 0} cities)
+                  <div className="space-y-2 text-sm font-medium">
+                    <div className="flex items-center gap-2 p-3 rounded-2xl bg-card/60 border border-emerald-500/10 hover:bg-emerald-500/5 transition-colors">
+                      <div className={`w-2 h-2 rounded-full ${dashboardData.dataSourceStatus?.weatherAPI ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`}></div>
+                      <span className="text-foreground/80">Weather API ({dashboardData.bigDataVolume?.citiesMonitored || 0} nodes)</span>
                     </div>
-                    <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-800/50 border border-teal-500/10">
-                      <div className={`w-2 h-2 rounded-full ${dashboardData.dataSourceStatus?.supabaseDB ? 'bg-teal-400 animate-pulse' : 'bg-rose-400'}`}></div>
-                      Supabase Cache Database
+                    <div className="flex items-center gap-2 p-3 rounded-2xl bg-card/60 border border-teal-500/10 hover:bg-teal-500/5 transition-colors">
+                      <div className={`w-2 h-2 rounded-full ${dashboardData.dataSourceStatus?.supabaseDB ? 'bg-teal-500 animate-pulse' : 'bg-rose-500'}`}></div>
+                      <span className="text-foreground/80">Supabase Intelligence DB</span>
                     </div>
-                    <div className="flex items-center gap-2 p-2 rounded-lg bg-slate-800/50 border border-cyan-500/10">
-                      <div className={`w-2 h-2 rounded-full ${dashboardData.dataSourceStatus?.internalSensors ? 'bg-cyan-400 animate-pulse' : 'bg-slate-500'}`}></div>
-                      Internal Sensor Network
+                    <div className="flex items-center gap-2 p-3 rounded-2xl bg-card/60 border border-cyan-500/10 hover:bg-cyan-500/5 transition-colors">
+                      <div className={`w-2 h-2 rounded-full ${dashboardData.dataSourceStatus?.internalSensors ? 'bg-cyan-500 animate-pulse' : 'bg-muted-foreground/30'}`}></div>
+                      <span className="text-foreground/80">Sensor Telemetry Network</span>
                     </div>
                   </div>
                 </div>
 
                 <div>
                   <h4 className="font-semibold mb-3 text-teal-300">⚙️ Processing Pipeline</h4>
-                  <div className="space-y-2 text-sm text-slate-300">
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-cyan-500/10">
-                      <span>Data Ingestion</span>
-                      <Badge variant="default" className="bg-cyan-500/20 text-cyan-300 border-cyan-400/40">Active</Badge>
+                  <div className="space-y-2 text-sm font-medium">
+                    <div className="flex justify-between p-3 rounded-2xl bg-card/40 border border-cyan-500/10">
+                      <span className="text-foreground/70">Data Ingestion</span>
+                      <Badge variant="outline" className="bg-cyan-500/10 text-cyan-500 border-cyan-500/20 font-bold px-3">ACTIVE</Badge>
                     </div>
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-violet-500/10">
-                      <span>Anomaly Detection</span>
-                      <Badge variant="default" className="bg-violet-500/20 text-violet-300 border-violet-400/40">Running</Badge>
+                    <div className="flex justify-between p-3 rounded-2xl bg-card/40 border border-violet-500/10">
+                      <span className="text-foreground/70">Anomaly Sync</span>
+                      <Badge variant="outline" className="bg-violet-500/10 text-violet-500 border-violet-500/20 font-bold px-3">RUNNING</Badge>
                     </div>
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                      <span>Predictive Analysis</span>
-                      <Badge variant="default" className="bg-emerald-500/20 text-emerald-300 border-emerald-400/40">Computing</Badge>
+                    <div className="flex justify-between p-3 rounded-2xl bg-card/40 border border-emerald-500/10">
+                      <span className="text-foreground/70">Neural Compute</span>
+                      <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 font-bold px-3">SYNCING</Badge>
                     </div>
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-amber-500/10">
-                      <span>Cache Management</span>
-                      <Badge variant="default" className="bg-amber-500/20 text-amber-300 border-amber-400/40">Optimizing</Badge>
+                    <div className="flex justify-between p-3 rounded-2xl bg-card/40 border border-amber-500/10">
+                      <span className="text-foreground/70">Cache Optimization</span>
+                      <Badge variant="outline" className="bg-amber-500/10 text-amber-500 border-amber-500/20 font-bold px-3">READY</Badge>
                     </div>
                   </div>
                 </div>
 
                 <div>
                   <h4 className="font-semibold mb-3 text-cyan-300">📈 Performance Metrics</h4>
-                  <div className="space-y-2 text-sm text-slate-300">
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-teal-500/10">
-                      <span>Throughput</span>
-                      <span className="font-medium text-teal-300">{realtimeStats?.processingRate || 0} pts/sec</span>
+                  <div className="space-y-2 text-sm font-bold">
+                    <div className="flex justify-between p-3 rounded-2xl bg-teal-500/5 border border-teal-500/10">
+                      <span className="text-teal-600 dark:text-teal-400 uppercase tracking-tight">Throughput</span>
+                      <span className="text-foreground">{realtimeStats?.processingRate || 0} pts/s</span>
                     </div>
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                      <span>Cache Hit Rate</span>
-                      <span className="font-medium text-emerald-300">85%</span>
+                    <div className="flex justify-between p-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
+                      <span className="text-emerald-600 dark:text-emerald-400 uppercase tracking-tight">Cache Hit</span>
+                      <span className="text-foreground">85%</span>
                     </div>
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                      <span>Error Rate</span>
-                      <span className="font-medium text-emerald-300">0.2%</span>
+                    <div className="flex justify-between p-3 rounded-2xl bg-rose-500/5 border border-rose-500/10">
+                      <span className="text-rose-600 dark:text-rose-400 uppercase tracking-tight">Loss Rate</span>
+                      <span className="text-foreground">0.2%</span>
                     </div>
-                    <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-cyan-500/10">
-                      <span>Uptime</span>
-                      <span className="font-medium text-cyan-300">99.8%</span>
+                    <div className="flex justify-between p-3 rounded-2xl bg-cyan-500/5 border border-cyan-500/10">
+                      <span className="text-cyan-600 dark:text-cyan-400 uppercase tracking-tight">Stability</span>
+                      <span className="text-foreground">99.8%</span>
                     </div>
                   </div>
                 </div>
@@ -268,16 +258,17 @@ function AnalyticsDashboard() {
 
           {/* Recent Insights */}
           {dashboardData.recentInsights && dashboardData.recentInsights.length > 0 && (
-            <Card className="bg-slate-900/60 backdrop-blur-xl border-emerald-500/30 shadow-2xl">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-emerald-300">
-                    🔍 Recent AI-Generated Insights
-                  <Badge variant="outline" className="text-xs bg-emerald-500/20 text-emerald-300 border-emerald-400/40">
-                    {dashboardData.recentInsights.length} active
+            <Card className="bg-card/40 backdrop-blur-xl border-emerald-500/10 shadow-xl overflow-hidden relative group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 blur-[100px] -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
+              <CardHeader className="relative z-10">
+                <CardTitle className="flex items-center justify-between text-2xl font-black tracking-tight text-foreground">
+                  Neural Insights
+                  <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-none px-3 font-bold">
+                    {dashboardData.recentInsights.length} ACTIVE
                   </Badge>
                 </CardTitle>
-                <CardDescription className="text-slate-400">
-                  Machine learning predictions and anomaly detection results
+                <CardDescription className="font-medium text-muted-foreground/80">
+                  Real-time pattern recognition and climate anomaly assessment.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -304,11 +295,13 @@ function AnalyticsDashboard() {
                                 {insight.impact}
                               </Badge>
                             </div>
-                            <p className="text-sm font-medium mb-1">{insight.prediction}</p>
-                            <div className="text-xs text-slate-400 flex items-center gap-4">
+                            <p className="text-sm font-bold mb-2 text-foreground/90">{insight.prediction}</p>
+                            <div className="text-[10px] font-bold text-muted-foreground/60 flex flex-wrap items-center gap-4 uppercase tracking-wider">
                               <span>Confidence: {insight.confidence}%</span>
+                              <span>•</span>
                               <span>Source: {insight.dataSource}</span>
-                              <span>Timeframe: {insight.timeframe}</span>
+                              <span>•</span>
+                              <span>Window: {insight.timeframe}</span>
                             </div>
                           </div>
                           <div className="text-2xl ml-4">
@@ -326,11 +319,12 @@ function AnalyticsDashboard() {
             </Card>
           )}
 
-          <Card className="bg-slate-900/60 backdrop-blur-xl border-emerald-500/30 shadow-2xl">
-            <CardHeader>
-              <CardTitle className="text-emerald-300">📊 Big Data Processing Overview</CardTitle>
-              <CardDescription className="text-slate-400">
-                Real-time weather data analysis and pattern recognition
+          <Card className="bg-card/40 backdrop-blur-xl border-emerald-500/10 shadow-xl overflow-hidden relative group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] -z-10 group-hover:bg-cyan-500/10 transition-colors"></div>
+            <CardHeader className="relative z-10">
+              <CardTitle className="text-2xl font-black tracking-tight text-foreground">Global Overview</CardTitle>
+              <CardDescription className="font-medium text-muted-foreground/80">
+                Pattern recognition across multi-vector climate streams.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -355,26 +349,27 @@ function AnalyticsDashboard() {
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-violet-300">🤖 AI Capabilities</h4>
-                  <div className="bg-gradient-to-br from-violet-500/20 to-purple-500/20 p-4 rounded-xl border border-violet-400/30 backdrop-blur-sm">
-                    <div className="space-y-2 text-sm text-slate-300">
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                        <span>Statistical Anomaly Detection</span>
-                        <Badge variant="default" className="bg-emerald-500/20 text-emerald-300 border-emerald-400/40">Active</Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                        <span>Predictive Health Analytics</span>
-                        <Badge variant="default" className="bg-emerald-500/20 text-emerald-300 border-emerald-400/40">Active</Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                        <span>Weather Pattern Prediction</span>
-                        <Badge variant="default" className="bg-emerald-500/20 text-emerald-300 border-emerald-400/40">Active</Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-                        <span>Climate Forecasting</span>
-                        <Badge variant="default" className="bg-emerald-500/20 text-emerald-300 border-emerald-400/40">Active</Badge>
-                      </div>
+                <div className="space-y-6">
+                  <h4 className="text-lg font-bold text-foreground flex items-center gap-2">
+                    <span className="w-1 h-5 bg-violet-600 rounded-full"></span>
+                    AI Intelligence
+                  </h4>
+                  <div className="grid gap-3">
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-card/60 border border-emerald-500/10 hover:bg-emerald-500/5 transition-colors">
+                      <span className="text-sm font-bold text-foreground/70 uppercase tracking-tight">Statistical Anomaly</span>
+                      <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-none font-bold">ACTIVE</Badge>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-card/60 border border-emerald-500/10 hover:bg-emerald-500/5 transition-colors">
+                      <span className="text-sm font-bold text-foreground/70 uppercase tracking-tight">Neural Predictions</span>
+                      <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-none font-bold">ACTIVE</Badge>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-card/60 border border-emerald-500/10 hover:bg-emerald-500/5 transition-colors">
+                      <span className="text-sm font-bold text-foreground/70 uppercase tracking-tight">Pattern recognition</span>
+                      <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-none font-bold">ACTIVE</Badge>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-card/60 border border-emerald-500/10 hover:bg-emerald-500/5 transition-colors">
+                      <span className="text-sm font-bold text-foreground/70 uppercase tracking-tight">Global Forecasting</span>
+                      <Badge variant="outline" className="bg-emerald-500/10 text-emerald-500 border-none font-bold">ACTIVE</Badge>
                     </div>
                   </div>
                 </div>
@@ -397,12 +392,16 @@ export default function WeatherMonitorDashboard() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-emerald-950 to-teal-950">
+    <div className="min-h-screen bg-background text-foreground selection:bg-emerald-500/30">
+      <div className="fixed inset-0 bg-neutral-50 dark:bg-neutral-950 -z-10 overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/5 blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-500/5 blur-[120px]"></div>
+      </div>
       <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
       
 
       
-      <div className="container mx-auto px-2 py-8">
+      <div className="container mx-auto px-4 py-8">
         <HeroSection 
           isConnected={isConnected}
           connectionError={connectionError}

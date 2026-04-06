@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { getWeatherByCity, weatherQueryKeys } from '@/app/bigdata/WeatherQueries'
 import { CheckCircle, Sparkles } from 'lucide-react'
 import AnimatedCounter from '@/components/magic-ui/animated-counter'
+import { cn } from "@/lib/utils"
 
 function WeatherCard({ city }: { city: string }) {
   const { data: weather, isLoading, error, refetch } = useQuery({
@@ -46,16 +47,16 @@ function WeatherCard({ city }: { city: string }) {
 
   if (isLoading) {
     return (
-      <Card className="animate-pulse bg-slate-900/60 backdrop-blur-xl shadow-2xl shadow-emerald-500/10 border-emerald-500/20">
+      <Card className="animate-pulse bg-card/50 backdrop-blur-sm border-emerald-500/10">
         <CardHeader>
-          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-          <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+          <div className="h-6 bg-emerald-500/10 rounded-lg w-3/4 mb-2"></div>
+          <div className="h-4 bg-emerald-500/10 rounded-lg w-1/2"></div>
         </CardHeader>
         <CardContent>
-          <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
-          <div className="space-y-2">
-            <div className="h-3 bg-gray-200 rounded"></div>
-            <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+          <div className="h-12 bg-emerald-500/10 rounded-xl w-1/3 mb-6"></div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="h-10 bg-emerald-500/10 rounded-lg"></div>
+            <div className="h-10 bg-emerald-500/10 rounded-lg"></div>
           </div>
         </CardContent>
       </Card>
@@ -64,14 +65,14 @@ function WeatherCard({ city }: { city: string }) {
 
   if (error) {
     return (
-      <Card className="border-rose-500/40 bg-rose-900/30 backdrop-blur-xl shadow-2xl shadow-rose-500/10">
+      <Card className="border-destructive/20 bg-destructive/5 backdrop-blur-sm shadow-xl shadow-destructive/5">
         <CardHeader>
-          <CardTitle className="text-rose-400">{city}</CardTitle>
-          <CardDescription className="text-rose-300/70">Failed to load weather data</CardDescription>
+          <CardTitle className="text-destructive font-bold">{city}</CardTitle>
+          <CardDescription className="text-destructive/70">Failed to sync weather data</CardDescription>
         </CardHeader>
         <CardContent>
-          <Button onClick={() => refetch()} variant="outline" size="sm" className="border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/20">
-            Retry
+          <Button onClick={() => refetch()} variant="outline" size="sm" className="w-full border-destructive/20 text-destructive hover:bg-destructive/10">
+            Retry Connection
           </Button>
         </CardContent>
       </Card>
@@ -98,71 +99,56 @@ function WeatherCard({ city }: { city: string }) {
   const precipitation = weather.precipitation || 0
 
   return (
-    <Card className="transition-all hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-2 bg-gradient-to-br from-slate-900/80 via-slate-800/60 to-slate-900/80 backdrop-blur-xl shadow-2xl border-emerald-500/30 group">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span className="text-lg font-bold text-emerald-300 group-hover:text-emerald-200 transition-colors">
+    <Card className="transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1 bg-card/40 backdrop-blur-md border-emerald-500/10 group overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl -z-10 group-hover:bg-emerald-500/10 transition-colors"></div>
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center justify-between gap-2">
+          <span className="text-xl font-bold text-foreground group-hover:text-emerald-500 transition-colors">
             {weather.location}
           </span>
-          <Badge variant="outline" className={getWeatherConditionColor(condition)}>
+          <Badge variant="secondary" className={cn("rounded-full border-none px-3 py-1 text-[10px] font-bold uppercase tracking-wider", getWeatherConditionColor(condition))}>
             {condition}
           </Badge>
         </CardTitle>
-        <CardDescription className="flex items-center gap-1 text-emerald-300/70">
-          <Sparkles className="w-3 h-3 text-emerald-400" />
-          Real-time weather data from {weather.apiSource}
+        <CardDescription className="flex items-center gap-1.5 text-muted-foreground font-medium text-xs">
+          <Sparkles className="w-3 h-3 text-emerald-500" />
+          {weather.apiSource} • <span className="text-emerald-500/80">Real-time</span>
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold text-slate-300">Temperature</span>
-            <span className={`text-4xl font-bold ${getTemperatureColor(temperature)} drop-shadow-lg`}>
-              <AnimatedCounter value={temperature} duration={1500} />°C
+        <div className="space-y-6">
+          <div className="flex items-baseline justify-between">
+            <span className="text-sm font-semibold text-muted-foreground uppercase tracking-widest">Temp</span>
+            <span className={cn("text-5xl font-black drop-shadow-sm", getTemperatureColor(temperature))}>
+              <AnimatedCounter value={temperature} duration={1500} />°
             </span>
           </div>
           
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-emerald-500/10">
-              <span className="text-slate-400">Humidity:</span>
-              <span className="ml-1 font-medium text-emerald-300">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col p-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 hover:bg-emerald-500/10 transition-colors">
+              <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">Humidity</span>
+              <span className="text-lg font-bold text-foreground">
                 <AnimatedCounter value={humidity} duration={1200} />%
               </span>
             </div>
-            <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-teal-500/10">
-              <span className="text-slate-400">Wind Speed:</span>
-              <span className="ml-1 font-medium text-teal-300">
-                <AnimatedCounter value={windSpeed} duration={1200} /> km/h
+            <div className="flex flex-col p-3 rounded-2xl bg-teal-500/5 border border-teal-500/10 hover:bg-teal-500/10 transition-colors">
+              <span className="text-[10px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider mb-1">Wind</span>
+              <span className="text-lg font-bold text-foreground line-clamp-1">
+                <AnimatedCounter value={windSpeed} duration={1200} /> <span className="text-xs font-medium opacity-70">km/h</span>
               </span>
             </div>
-            <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-cyan-500/10">
-              <span className="text-slate-400">Pressure:</span>
-              <span className="ml-1 font-medium text-cyan-300">
-                <AnimatedCounter value={pressure} duration={1200} /> hPa
+            <div className="flex flex-col p-3 rounded-2xl bg-cyan-500/5 border border-cyan-500/10 hover:bg-cyan-500/10 transition-colors">
+              <span className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">Pressure</span>
+              <span className="text-lg font-bold text-foreground">
+                <AnimatedCounter value={pressure} duration={1200} />
               </span>
             </div>
-            <div className="flex justify-between p-2 rounded-lg bg-slate-800/50 border border-blue-500/10">
-              <span className="text-slate-400">Precipitation:</span>
-              <span className="ml-1 font-medium text-blue-300">
-                <AnimatedCounter value={precipitation} duration={1200} /> mm
+            <div className="flex flex-col p-3 rounded-2xl bg-blue-500/5 border border-blue-500/10 hover:bg-blue-500/10 transition-colors">
+              <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">Rain</span>
+              <span className="text-lg font-bold text-foreground">
+                <AnimatedCounter value={precipitation} duration={1200} /> <span className="text-xs font-medium opacity-70">mm</span>
               </span>
             </div>
-          </div>
-
-          {weather.temperature && (
-            <div className="flex items-center justify-between pt-2 border-t border-emerald-500/20">
-              <span className="text-slate-400">Feels Like:</span>
-              <span className="font-medium text-emerald-300">
-                <AnimatedCounter value={Math.round(temperature + (windSpeed * 0.1))} duration={1000} />°C
-              </span>
-            </div>
-          )}
-
-          <div className="text-xs text-slate-500 flex items-center gap-1">
-            <span>Weather condition:</span>
-            <Badge variant="secondary" className="text-xs bg-emerald-500/10 text-emerald-300 border-emerald-500/30">
-              {condition.toUpperCase()}
-            </Badge>
           </div>
         </div>
       </CardContent>
@@ -187,15 +173,16 @@ function GlobalInsightsWidget() {
 
   if (isLoading) {
     return (
-      <Card className="bg-gradient-to-br from-slate-900/80 to-slate-800/60 backdrop-blur-xl shadow-2xl border-emerald-500/30">
-        <CardHeader>
-          <CardTitle className="text-emerald-300">Global Weather Insights</CardTitle>
+      <Card className="bg-card/40 backdrop-blur-xl border-emerald-500/10 shadow-xl overflow-hidden relative group">
+        <div className="absolute inset-0 bg-emerald-500/5 animate-pulse"></div>
+        <CardHeader className="relative">
+          <CardTitle className="text-emerald-500">Global Weather Insights</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="relative">
           <div className="animate-pulse space-y-4">
-            <div className="h-4 bg-emerald-500/20 rounded w-3/4"></div>
-            <div className="h-4 bg-emerald-500/20 rounded w-1/2"></div>
-            <div className="h-4 bg-emerald-500/20 rounded w-2/3"></div>
+            <div className="h-4 bg-emerald-500/10 rounded-full w-3/4"></div>
+            <div className="h-4 bg-emerald-500/10 rounded-full w-1/2"></div>
+            <div className="h-4 bg-emerald-500/10 rounded-full w-2/3"></div>
           </div>
         </CardContent>
       </Card>
@@ -204,12 +191,12 @@ function GlobalInsightsWidget() {
 
   if (error || !insights) {
     return (
-      <Card className="bg-gradient-to-br from-slate-900/80 to-slate-800/60 backdrop-blur-xl shadow-2xl border-rose-500/30">
+      <Card className="bg-destructive/5 backdrop-blur-xl border-destructive/20 shadow-xl">
         <CardHeader>
-          <CardTitle className="text-rose-300">Global Weather Insights</CardTitle>
+          <CardTitle className="text-destructive font-bold">Global Weather Insights</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-rose-400">Failed to load global weather insights</p>
+          <p className="text-destructive/80 font-medium">Failed to sync global weather intelligence</p>
         </CardContent>
       </Card>
     )
@@ -221,38 +208,39 @@ function GlobalInsightsWidget() {
   const warmestTemp = insights.warmestCity?.temperature || 25
 
   return (
-    <Card className="bg-gradient-to-br from-slate-900/90 via-emerald-900/20 to-teal-900/20 backdrop-blur-xl shadow-2xl border-emerald-500/30">
-      <CardHeader>
-        <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-          🌍 Global Weather Insights
+    <Card className="bg-card/40 backdrop-blur-xl shadow-xl border-emerald-500/10 overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-cyan-500/5"></div>
+      <CardHeader className="relative z-10">
+        <CardTitle className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-emerald-400 dark:via-teal-400 dark:to-cyan-400 bg-clip-text text-transparent">
+          Global Weather Insights
         </CardTitle>
-        <CardDescription className="text-emerald-300/80">Real-time analytics from {insights.totalCitiesMonitored} cities worldwide</CardDescription>
+        <CardDescription className="text-emerald-600/70 dark:text-emerald-300/60 font-medium">Monitoring {insights.totalCitiesMonitored} cities across the globe</CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 backdrop-blur-sm">
-            <div className="text-3xl font-bold text-cyan-300 drop-shadow-lg">{avgTemp}°C</div>
-            <div className="text-sm text-cyan-200/80 mt-2">Average Temperature</div>
+      <CardContent className="relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-6 rounded-3xl bg-cyan-500/5 border border-cyan-500/10 backdrop-blur-sm group hover:bg-cyan-500/10 transition-colors">
+            <div className="text-3xl font-black text-cyan-600 dark:text-cyan-400 mb-1">{avgTemp}°</div>
+            <div className="text-[10px] font-bold text-cyan-600/60 uppercase tracking-widest">Average Temp</div>
           </div>
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-rose-500/20 to-pink-500/20 border border-rose-400/30 backdrop-blur-sm">
-            <div className="text-3xl font-bold text-rose-300 drop-shadow-lg">{insights.citiesWithAlerts}</div>
-            <div className="text-sm text-rose-200/80 mt-2">Cities with Alerts</div>
+          <div className="p-6 rounded-3xl bg-rose-500/5 border border-rose-500/10 backdrop-blur-sm group hover:bg-rose-500/10 transition-colors">
+            <div className="text-3xl font-black text-rose-600 dark:text-rose-400 mb-1">{insights.citiesWithAlerts}</div>
+            <div className="text-[10px] font-bold text-rose-600/60 uppercase tracking-widest">Risk Alerts</div>
           </div>
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-teal-500/20 to-cyan-500/20 border border-teal-400/30 backdrop-blur-sm">
-            <div className="text-3xl font-bold text-teal-300 drop-shadow-lg">{coolestTemp}°C</div>
-            <div className="text-sm text-teal-200/80 mt-2">Coolest: {insights.coolestCity?.name || 'N/A'}</div>
+          <div className="p-6 rounded-3xl bg-teal-500/5 border border-teal-500/10 backdrop-blur-sm group hover:bg-teal-500/10 transition-colors">
+            <div className="text-3xl font-black text-teal-600 dark:text-teal-400 mb-1 line-clamp-1">{insights.coolestCity?.name || 'N/A'}</div>
+            <div className="text-[10px] font-bold text-teal-600/60 uppercase tracking-widest">Coolest: {coolestTemp}°</div>
           </div>
-          <div className="text-center p-4 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-400/30 backdrop-blur-sm">
-            <div className="text-3xl font-bold text-amber-300 drop-shadow-lg">{warmestTemp}°C</div>
-            <div className="text-sm text-amber-200/80 mt-2">Warmest: {insights.warmestCity?.name || 'N/A'}</div>
+          <div className="p-6 rounded-3xl bg-amber-500/5 border border-amber-500/10 backdrop-blur-sm group hover:bg-amber-500/10 transition-colors">
+            <div className="text-3xl font-black text-amber-600 dark:text-amber-400 mb-1 line-clamp-1">{insights.warmestCity?.name || 'N/A'}</div>
+            <div className="text-[10px] font-bold text-amber-600/60 uppercase tracking-widest">Warmest: {warmestTemp}°</div>
           </div>
         </div>
 
         {insights.citiesWithAlerts > 0 && (
-          <Alert className="mt-6 bg-gradient-to-r from-rose-900/40 to-orange-900/40 border-rose-500/50 backdrop-blur-sm">
-            <AlertDescription className="text-rose-200">
-              ⚠️ {insights.citiesWithAlerts} cities currently have severe weather conditions. 
-              Stay informed and take necessary precautions.
+          <Alert className="mt-6 bg-rose-500/5 border-rose-500/20 rounded-2xl">
+            <AlertDescription className="text-rose-600 dark:text-rose-400 font-medium flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-rose-500 animate-pulse"></span>
+              Strategic Warning: Unusual weather activity detected in {insights.citiesWithAlerts} monitoring zones.
             </AlertDescription>
           </Alert>
         )}
@@ -265,17 +253,19 @@ export function GlobalMonitoring() {
   const majorCities = ['London', 'New York', 'Moscow', 'Paris', 'Shanghai', 'Mexico City']
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       <GlobalInsightsWidget />
 
-      <div>
-        <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
-          🌍 Major Cities Weather Dashboard
-        </h2>
-        <p className="text-emerald-200/80 mb-6 text-lg">
-          Real-time weather monitoring across 6 major global cities with complete meteorological data and forecasts
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="space-y-6">
+        <div className="max-w-2xl">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground mb-3">
+            Major City Hubs
+          </h2>
+          <p className="text-muted-foreground font-medium">
+            Strategic weather monitoring across primary global metropolitan zones.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {majorCities.map((city) => (
             <WeatherCard key={city} city={city} />
           ))}
@@ -283,4 +273,4 @@ export function GlobalMonitoring() {
       </div>
     </div>
   )
-} 
+}

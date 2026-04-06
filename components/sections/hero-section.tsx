@@ -9,46 +9,41 @@ import { HeroSectionProps } from "@/types"
 
 export function HeroSection({ isConnected, connectionError, lastUpdate }: HeroSectionProps) {
   return (
-    <div className="text-center mb-8 relative">
-      <div className="relative bg-gradient-to-br from-slate-900/90 via-emerald-900/30 to-teal-900/30 backdrop-blur-xl px-8 py-12 rounded-3xl shadow-2xl shadow-emerald-500/20 border border-emerald-500/30">
-        <div className="absolute inset-0 rounded-2xl overflow-hidden">
+    <div className="text-center mb-10 relative">
+      <div className="relative bg-card/40 backdrop-blur-xl px-4 sm:px-8 py-10 sm:py-16 rounded-[2.5rem] shadow-xl shadow-emerald-500/5 border border-emerald-500/10 overflow-hidden">
+        <div className="absolute inset-0 z-0">
           <RetroGrid 
-            gridSize={60}
+            gridSize={50}
             strokeWidth={1}
-            opacity={0.15}
+            opacity={0.1}
             fade={true}
           />
         </div>
         
-        <div className="relative z-10">
-          <h1 className="text-5xl font-bold mb-4">
+        <div className="relative z-10 max-w-4xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
             <GradientText 
-              className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400"
+              className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500"
             >
-              ⛈️ Weather Monitor System
+              Weather Intelligence
             </GradientText>
           </h1>
-          <p className="text-xl text-emerald-200/90 mb-6">
-            Real-Time Weather Intelligence & Environmental Analytics
+          <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-medium">
+            Advanced real-time monitoring and environmental analytics powered by AI.
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Badge variant="outline" className="text-sm px-4 py-2 bg-emerald-500/10 backdrop-blur-sm border-emerald-400/40 text-emerald-300">
-              <Sparkles className="w-3 h-3 mr-1 text-emerald-400" />
-              Powered by Weather API • 30+ Global Cities • AI-Powered Insights
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <Badge variant="secondary" className="text-xs sm:text-sm px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-none rounded-full transition-all">
+              <Sparkles className="w-3.5 h-3.5 mr-2" />
+              AI-Powered Insights
             </Badge>
             {isConnected ? (
-              <Badge variant="outline" className="bg-emerald-500/20 text-emerald-300 border-emerald-400/50 backdrop-blur-sm">
-                <div className="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
-                Real-time Active
-                {lastUpdate && (
-                  <span className="ml-2 text-xs">
-                    (Updated)
-                  </span>
-                )}
+              <Badge variant="outline" className="px-4 py-2 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 rounded-full backdrop-blur-sm">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                Live System Active
               </Badge>
             ) : (
-              <Badge variant="outline" className="bg-rose-500/20 text-rose-300 border-rose-400/50 backdrop-blur-sm">
-                <div className="w-2 h-2 bg-rose-400 rounded-full mr-2 animate-pulse"></div>
+              <Badge variant="outline" className="px-4 py-2 bg-rose-500/10 text-rose-500 border-rose-500/20 rounded-full backdrop-blur-sm">
+                <div className="w-2 h-2 bg-rose-500 rounded-full mr-2 animate-pulse"></div>
                 {connectionError || 'Connecting...'}
               </Badge>
             )}
